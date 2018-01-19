@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block right_body %}
+    <div class="message_alert alert alert-danger alert-dismissible hide" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <strong>Oh snap!</strong> <span id="message_info"></span>
+    </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav_tab" role="tablist">
+        <li role="presentation" class="tab tab_home tab_style active">
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="tab_name_a">
+                <span class="tab_name">New Tab</span></a>
+        </li>
+        <li role="presentation">
+            <a href="javascript:void(0)" class="glyphicon glyphicon-plus tab_plus"></a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="margin-top: 20px;" id="post_content">
+        <!-- 切换输入框标签开始 -->
+        <div role="tabpanel" class="tab-pane tab_home active tab_content" id="home">
+            <form id="send_form_home">
+                {% csrf_token %}
+                <input type="hidden" id="project_id" value="0" name="project_id">
+                <input type="hidden" id="api_id" value="0" name="api_id">
+                <!-- 输入框开始 -->
+                <span class="form-inline">
+                            <div class="form-group" style="width: 82%;">
+                                <div class="input-group" style="width: 100%;">
+                                    <div class="input-group-btn" style="width: 10%;">
+                                        <select class="form-control" style="width: 100%;" name="action_method"
+                                                id="action_method">
+                                            <option value="get">GET</option>
+                                            <option value="post">POST</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter request URL" name="api"
+                                           id="api">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary send_btn">Send</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" class="local_send">Local send</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default save_btn">Save</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" class="save_as_btn">Save as...</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </span>
+                <!-- 输入框结束 -->
+
+                <!-- 参数框开始 -->
+                <div calss="row" style="margin-top: 20px;">
+                    <div calss="container-fluid">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#header" aria-controls="header" role="tab"
+                                   data-toggle="tab">header</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#body" aria-controls="body" role="tab" data-toggle="tab">Body</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#cookie" aria-controls="body" role="tab"
+                                   data-toggle="tab">Cookie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" style="margin-top: 20px;">
+                            <div role="tabpanel" class="tab-pane active header" id="header">
+                                <table class="table table-bordered header_table">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>Key</td>
+                                        <td>Value</td>
+                                        <td>Description</td>
+                                        <td align="center"><a href="javascript:"
+                                                              class="glyphicon glyphicon-plus header_plus"
+                                                              aria-hidden="true"></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <input type="checkbox" id="header_checkbox"
+                                                   name="header_checkbox[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control h_key" id="header_key"
+                                                   name="header_key[]" placeholder="key">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="header_value"
+                                                   name="header_value[]"
+                                                   placeholder="value">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="header_description"
+                                                   name="header_description[]"
+                                                   placeholder="description">
+                                        </td>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <a href="javascript:"
+                                               class="glyphicon glyphicon-minus header_minus"
+                                               aria-hidden="true"></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="body">
+                                <table class="table table-bordered body_table">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>Key</td>
+                                        <td>Value</td>
+                                        <td>Description</td>
+                                        <td align="center">
+                                            <a href="javascript:" class="glyphicon glyphicon-plus body_plus"
+                                               aria-hidden="true"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <input type="checkbox" id="body_checkbox[]"
+                                                   name="body_checkbox[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="body_key[]"
+                                                   name="body_key[]"
+                                                   placeholder="key">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="body_value[]"
+                                                   name="body_value[]"
+                                                   placeholder="value">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="body_description[]"
+                                                   name="body_description[]"
+                                                   placeholder="description">
+                                        </td>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <a href="javascript:"
+                                               class="glyphicon glyphicon-minus body_minus"
+                                               aria-hidden="true"></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="cookie">
+                                <table class="table table-bordered cookie_table">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>Key</td>
+                                        <td>Value</td>
+                                        <td>Description</td>
+                                        <td align="center">
+                                            <a href="javascript:"
+                                               class="glyphicon glyphicon-plus cookie_plus"
+                                               aria-hidden="true"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <input type="checkbox" id="body_checkbox[]"
+                                                   name="cookie_checkbox[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="cookie_key[]"
+                                                   name="cookie_key[]"
+                                                   placeholder="key">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="cookie_value[]"
+                                                   name="cookie_value[]"
+                                                   placeholder="value">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control"
+                                                   id="cookie_description[]" name="cookie_description[]"
+                                                   placeholder="description">
+                                        </td>
+                                        <td align="center" style="padding-top: 15px;">
+                                            <a href="javascript:"
+                                               class="glyphicon glyphicon-minus cookie_minus"
+                                               aria-hidden="true"></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- 参数框结束 -->
+
+            <!-- 返回框开始 -->
+            <div>
+                <h4>Response</h4>
+                <textarea class="form-control response" rows="16"></textarea>
+            </div>
+            <!-- 返回框开始 -->
+
+        </div>
+        <!-- 切换输入框标签结束 -->
+    </div>
+{% endblock %}

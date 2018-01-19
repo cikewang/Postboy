@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block right_body %}
+    <table class="table table-striped batch_table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checked_all" name="checked_all" checked="checked"></th>
+                <th>#ID</th>
+                <th>API</th>
+                <th>METHOD</th>
+                <th>HEADER</th>
+                <th>BODY</th>
+                <th>COOKIE</th>
+                <th>TEST STSTUS</th>
+            </tr>
+        </thead>
+        <tbody class="batch_tbody">
+        {% for items in project_list %}
+            <tr>
+                <td ><input type="checkbox" class="api_id" name="api_id[]" checked="checked" value="{{ items.id }}"></td>
+                <td>{{ items.id }}</td>
+                <td width="20%">{{ items.api }}</td>
+                <td>{{ items.action_method }}</td>
+                <td>{{ items.headers }}</td>
+                <td>{{ items.bodies }}</td>
+                <td>{{ items.cookies }}</td>
+                <td class="test_status"><span class="test_status_span"></span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="height:40px;margin-left: 20px;">
+        <input type="checkbox" id="compare_response" name="compare_response" value="1"> 比较返回值
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" id="compare_runtime" name="compare_runtime" value="1"> 比较运行时长
+    </div>
+
+    <div style="height:60px;">
+        <div class="col-sm-3 col-md-1">
+            <button type="button" id="batch_test_btn" data-loading-text="测试中..." class="btn btn-primary"
+                    autocomplete="on">
+                开始测试
+            </button>
+        </div>
+        <div class="col-sm-9 col-md-11 ">
+            <div class="progress test_progress_bar_div hide" style="margin-top: 7px;">
+                <div class="progress-bar test_progress_bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width: 0%;">
+                    0%
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <th>测试时间</th>
+                <th>测试报告</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}
