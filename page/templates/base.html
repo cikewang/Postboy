@@ -30,9 +30,23 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        .tab_style {width: 150px}
-        .tab_style .tab_name_a { overflow: hidden; white-space: nowrap; text-overflow: clip; width:150px; padding-left:5px;}
-        .testing_img {background:url("/static/images/testing.gif") no-repeat top;padding-left:8px;padding-right: 8px; }
+        .tab_style {
+            width: 150px
+        }
+
+        .tab_style .tab_name_a {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: clip;
+            width: 150px;
+            padding-left: 5px;
+        }
+
+        .testing_img {
+            background: url("/static/images/testing.gif") no-repeat top;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
     </style>
 </head>
 
@@ -52,9 +66,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
+                <li>
+                    <a href="/page/newProject" >New Project</a>
+                </li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
                 <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-right">
@@ -63,7 +78,6 @@
         </div>
     </div>
 </nav>
-
 
 
 <div class="container-fluid">
@@ -110,27 +124,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
+
+                {% for items in project_list %}
+                <div class="panel panel-default project_list_div">
+                    <div class="panel-heading" role="tab" id="heading_project_{{ items.id }}" >
                         <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                #2 Project
+                            <a class="collapsed project_list_a" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse_project_{{ items.id }}" aria-expanded="false" aria-controls="collapse_project_{{ items.id }}" id="{{ items.id }}">
+                                #{{ items.id }} {{ items.project_name }}
+                            </a>
+                            <a href="/page/project?project_id={{ items.id }}" style="float: right;">
+                                <span class="glyphicon glyphicon-tasks" title="Batch test"></span>
+                            </a>
+                            <a href="/page/project?project_id={{ items.id }}" style="float: right;margin-right: 10px;">
+                                <span class="glyphicon glyphicon-trash" title="Batch test"></span>
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div id="collapse_project_{{ items.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_project_{{ items.id }}">
                         <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                            squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa
-                            nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                            single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft
-                            beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                            lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
-                            probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul style="list-style-type:none;margin:0px;padding:0px;" class="project_ul project_ul_{{ items.id }}">
+                            </ul>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+
             </div>
         </div>
         <!-- 左边区域结束 -->
@@ -138,7 +157,8 @@
         <!-- 右边区域开始 -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="row">
-                <span class="glyphicon glyphicon-resize-horizontal left_right_move" style="position: absolute;top: 5px;left: 5px; cursor: pointer;"></span>
+                <span class="glyphicon glyphicon-resize-horizontal left_right_move"
+                      style="position: absolute;top: 5px;left: 5px; cursor: pointer;"></span>
                 {% block right_body %}加载中...{% endblock %}
             </div>
         </div>
@@ -149,7 +169,42 @@
 </div>
 
 
+<!-- New Project Start -->
+<div>
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#newProjectModel" >New Project</a>
+    <div class="modal fade" id="newProjectModel" tabindex="-1" role="dialog" aria-labelledby="newProjectModelLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="newProjectModelLabel">New Project</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        {% csrf_token %}
+                        <div class="alert alert-danger hide project_msg" role="alert">
 
+                        </div>
+                        <div class="form-group">
+                            <label for="project_name" class="control-label">Project Name:</label>
+                            <input type="text" class="form-control" id="project_name" name="project_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="project_description" class="control-label">Description:</label>
+                            <textarea class="form-control" id="project_description" name="project_description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="save_project">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- New Project end -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

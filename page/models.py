@@ -34,3 +34,10 @@ class Report(models.Model):
     runtime = models.IntegerField()
     messages = models.CharField(max_length=200)
     add_time = models.DateTimeField()
+
+class Project(models.Model):
+    project_name = models.CharField(max_length=20)
+    project_description = models.CharField(max_length=200)
+    project_file = models.CharField(max_length=200)
+    add_time = models.DateTimeField()
+    update_time = models.DateTimeField()

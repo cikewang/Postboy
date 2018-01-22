@@ -6,8 +6,8 @@
             <tr>
                 <th><input type="checkbox" id="checked_all" name="checked_all" checked="checked"></th>
                 <th>#ID</th>
-                <th>API</th>
                 <th>METHOD</th>
+                <th>API</th>
                 <th>HEADER</th>
                 <th>BODY</th>
                 <th>COOKIE</th>
@@ -15,12 +15,12 @@
             </tr>
         </thead>
         <tbody class="batch_tbody">
-        {% for items in project_list %}
+        {% for items in test_list %}
             <tr>
                 <td ><input type="checkbox" class="api_id" name="api_id[]" checked="checked" value="{{ items.id }}"></td>
                 <td>{{ items.id }}</td>
-                <td width="20%">{{ items.api }}</td>
                 <td>{{ items.action_method }}</td>
+                <td width="20%">{{ items.api }}</td>
                 <td>{{ items.headers }}</td>
                 <td>{{ items.bodies }}</td>
                 <td>{{ items.cookies }}</td>

@@ -15,6 +15,9 @@ function new_tab_content(id) {
     return '<div role="tabpanel" class="tab-pane tab_' + id + '  active tab_content" id="' + id + '"><form id="send_form_' + id + '">' + token_html + '<input type="hidden" id="project_id" value="0" name="project_id"><input type="hidden" id="api_id" value="0" name="api_id"><!-- 输入框开始 --><span class="form-inline"><div class="form-group" style="width: 82%;"><div class="input-group" style="width: 100%;"><div class="input-group-btn" style="width: 10%;"><select class="form-control" style="width: 100%;" name="action_method" id="action_method"><option value="get">GET</option><option value="post">POST</option></select></div><input type="text" class="form-control" placeholder="Enter request URL" name="api" id="api"></div></div><div class="form-group"><div class="btn-group"><button type="button" class="btn btn-primary send_btn">Send</button><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu"><li><a href="javascript:void(0)" class="local_send">Local send</a></li></ul></div><!-- Split button --><div class="btn-group"><button type="button" class="btn btn-default save_btn">Save</button><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button> <ul class="dropdown-menu"> <li><a href="javascript:void(0)" class="save_as_btn">Save as...</a></li></ul></div></div></span><!-- 输入框结束 --> <!-- 参数框开始 --><div calss="row" style="margin-top: 20px;">            <div calss="container-fluid">                <ul class="nav nav-tabs" role="tablist">                    <li role="presentation" class="active">                        <a href="#header_' + id + '" aria-controls="header_' + id + '" role="tab"                           data-toggle="tab">header</a>                    </li>                    <li role="presentation">                        <a href="#body_' + id + '" aria-controls="body_' + id + '" role="tab" data-toggle="tab">Body</a>                    </li>                    <li role="presentation">                        <a href="#cookie_' + id + '" aria-controls="cookie_' + id + '" role="tab"                           data-toggle="tab">Cookie</a>                    </li>                </ul>                <div class="tab-content" style="margin-top: 20px;">                    <div role="tabpanel" class="tab-pane active header_' + id + '" id="header_' + id + '">                        <table class="table table-bordered header_table">                            <tr>                                <td>&nbsp;</td>                                <td>Key</td>                                <td>Value</td>                                <td>Description</td>                                <td align="center"><a href="javascript:"                                                      class="glyphicon glyphicon-plus header_plus"                                                      aria-hidden="true"></a></td>                            </tr>                            <tr>                                <td align="center" style="padding-top: 15px;">                                    <input type="checkbox" id="header_checkbox"                                           name="header_checkbox[]">                                </td>                                <td>                                    <input type="text" class="form-control h_key" id="header_key"                                           name="header_key[]" placeholder="key">                                </td>                                <td>                                    <input type="text" class="form-control" id="header_value"                                           name="header_value[]"                                           placeholder="value">                                </td>                                <td>                                    <input type="text" class="form-control" id="header_description"                                           name="header_description[]"                                           placeholder="description">                                </td>                                <td align="center" style="padding-top: 15px;">                                    <a href="javascript:"                                       class="glyphicon glyphicon-minus header_minus"                                       aria-hidden="true"></a>                                </td>                            </tr>                        </table>                    </div>                    <div role="tabpanel" class="tab-pane" id="body_' + id + '">                        <table class="table table-bordered body_table">                            <tr>                                <td>&nbsp;</td>                                <td>Key</td><td>Value</td><td>Description</td><td align="center"><a href="javascript:" class="glyphicon glyphicon-plus body_plus"                                       aria-hidden="true"></a>                                </td></tr><tr><td align="center" style="padding-top: 15px;"><input type="checkbox" id="body_checkbox[]"                                           name="body_checkbox[]"></td><td><input type="text" class="form-control" id="body_key[]" name="body_key[]" placeholder="key">                                </td>                                <td>                                    <input type="text" class="form-control" id="body_value[]"                                           name="body_value[]"                                           placeholder="value">                                </td>                                <td>                                    <input type="text" class="form-control" id="body_description[]"                                           name="body_description[]"                                           placeholder="description">                                </td>                                <td align="center" style="padding-top: 15px;">                                    <a href="javascript:"                                       class="glyphicon glyphicon-minus body_minus"                                       aria-hidden="true"></a>                                </td>                            </tr>                        </table>                    </div>                    <div role="tabpanel" class="tab-pane" id="cookie_' + id + '">                        <table class="table table-bordered cookie_table">                            <tr>                                <td>&nbsp;</td>                                <td>Key</td>                                <td>Value</td>                                <td>Description</td>                                <td align="center">                                    <a href="javascript:"                                       class="glyphicon glyphicon-plus cookie_plus"                                       aria-hidden="true"></a>                                </td>                            </tr>                            <tr>                                <td align="center" style="padding-top: 15px;">                                    <input type="checkbox" id="body_checkbox[]"                                           name="cookie_checkbox[]">                                </td>                                <td>                                    <input type="text" class="form-control" id="cookie_key[]"                                           name="cookie_key[]"                                           placeholder="key">                                </td>                                <td>                                    <input type="text" class="form-control" id="cookie_value[]"                                           name="cookie_value[]"                                           placeholder="value">                                </td>                                <td>                                    <input type="text" class="form-control"                                           id="cookie_description[]" name="cookie_description[]"                                           placeholder="description">                                </td>                                <td align="center" style="padding-top: 15px;">                                    <a href="javascript:"                                       class="glyphicon glyphicon-minus cookie_minus"                                       aria-hidden="true"></a>                                </td>                            </tr>                        </table>                    </div>                </div>            </div>        </div>    </form>    <!-- 参数框结束 -->    <!-- 返回框开始 -->    <div>        <h4>Response</h4>        <textarea class="form-control response" rows="16"></textarea></div><!-- 返回框开始 --></div>'
 }
 
+function new_project(id) {
+    return '<div class="panel panel-default project_div"><div class="panel-heading" role="tab" id="project_'+id+'"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">#2 Project</a><a href="/page/project?project_id=0" style="float: right;"><span class="glyphicon glyphicon-tasks" title="Batch test"></span></a><a href="/page/project?project_id=0" style="float: right;margin-right: 10px;"><span class="glyphicon glyphicon-trash" title="Batch test"></span></a></h4></div><div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="project_'+id+'"><div class="panel-body"><ul style="list-style-type:none;margin:0px;padding:0px;" class="project_ul"></ul></div></div></div>';
+}
 
 $(function () {
 
@@ -300,5 +303,58 @@ $(function () {
         } else {
             $(".api_id").each(function(){this.checked=false;});
         }
+    });
+
+    $("#save_project").click(function(){
+        var project_name = $("#project_name").val();
+        var project_description = $("project_description").val();
+
+        if (project_name == '') {
+            $(".project_msg").html("The project name can't be empty.");
+            $(".project_msg").removeClass('hide');
+            setTimeout(function () {
+                $(".project_msg").addClass("hide")
+            }, 3000);
+            return false;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/page/add_project/",
+            data: {project_name:project_name, project_description:project_description, csrfmiddlewaretoken: $(token_html).val()},
+            success: function (msg) {
+
+            },
+            error: function (msg) {
+                $(".project_msg").html(msg);
+                $(".project_msg").removeClass('hide');
+            }
+        });
+
+    });
+
+
+    $(".project_list_a").click(function(){
+
+        var project_id = $(this).attr('id');
+        var ul = 'project_ul_'+project_id;
+        $.ajax({
+            type: "get",
+            data: {project_id:project_id, time: Date.parse(new Date())},
+            dataType: "json",
+            url: "/page/show/",
+            success: function (msg) {
+                $(".project_list_div").find("."+ul).html('');
+                $.each(msg, function (i, item) {
+                    $(".project_list_div").find("."+ul).prepend("<li class='history_li'><a href='javascript:void(0)' id='" + item.pk + "' class='history_api'>" + item.fields.api + "</a> <span class='glyphicon glyphicon-trash hide delete_btn'  aria-hidden='true'></span></li>")
+                });
+
+            },
+            error: function (msg) {
+                alert(2);
+                console.log(msg);
+            }
+        });
+
     });
 });

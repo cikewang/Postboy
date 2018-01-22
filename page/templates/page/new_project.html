@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block right_body %}
+    <h3>New Project</h3>
+    <hr/>
+    <form action="/page/saveProject/" method="post" enctype="multipart/form-data">
+        <div class="alert alert-danger hide" role="alert">
+            1234
+        </div>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="project_name">Project name</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project name" value="">
+        </div>
+        <div class="form-group">
+            <label for="project_description">Project description</label>
+            <textarea type="text" class="form-control" rows="3" id="project_description" name="project_description" placeholder="Project description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="project_file">Project file input</label>
+            <input type="file" id="project_file" name="project_file" >
+        </div>
+        <button type="submit" class="btn btn-primary save_project_form">Submit</button>
+    </form>
+{% endblock %}
