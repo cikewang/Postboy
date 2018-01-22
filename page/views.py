@@ -14,6 +14,7 @@ import json
 import requests
 import time
 import xlrd
+
 '''
 首页
 '''
@@ -181,7 +182,9 @@ def test_one(request):
 
 
 def newProject(request):
-    return render(request, 'page/new_project.html')
+    project_list = Project.objects.order_by('-id')
+
+    return render(request, 'page/new_project.html', {'project_list' : project_list})
 
 
 '''

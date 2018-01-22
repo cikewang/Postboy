@@ -18,7 +18,26 @@
         </div>
         <div class="form-group">
             <label for="project_file">Project file input</label>
-            <input type="file" id="project_file" name="project_file" >
+            <input type="file" id="project_file" name="project_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
+        </div>
+        <div>
+            文件要求：使用Excel文件，格式用下
+            <table class="table table-bordered">
+                <tr>
+                    <th>Method</th>
+                    <th>API</th>
+                    <th>Headers</th>
+                    <th>bodies</th>
+                    <th>cookies</th>
+                </tr>
+                <tr>
+                    <td>get</td>
+                    <td>http://www.baidu.com</td>
+                    <td>{"key":"value"}</td>
+                    <td>{"key":"value"}</td>
+                    <td>{"key":"value"}</td>
+                </tr>
+            </table>
         </div>
         <button type="submit" class="btn btn-primary save_project_form">Submit</button>
     </form>
