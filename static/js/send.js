@@ -57,7 +57,7 @@ $(function () {
         url: "/page/show/",
         success: function (msg) {
             $.each(msg, function (i, item) {
-                $(".default_ul").prepend("<li class='history_li'><a href='javascript:void(0)' id='" + item.pk + "' class='history_api'>" + item.fields.api + "</a> <span class='glyphicon glyphicon-trash hide delete_btn'  aria-hidden='true'></span></li>")
+                $(".default_ul").prepend("<li class='history_li li_"+item.pk+"' ><a href='javascript:void(0)' id='" + item.pk + "' class='history_api'>" + item.fields.api + "</a> <span class='glyphicon glyphicon-trash hide delete_btn'   api_id='" + item.pk + "' aria-hidden='true'></span></li>")
             });
 
         },
@@ -232,18 +232,17 @@ $(function () {
     });
 
     /*历史API显示删除按钮*/
-    $(".default_ul").on('mousemove', '.history_li', function () {
+    $(".project_ul").on('mousemove', '.history_li', function () {
         $(this).find('.delete_btn').removeClass('hide');
     });
 
     /*历史API隐藏删除按钮*/
-    $(".default_ul").on('mouseout', '.history_li', function () {
+    $(".project_ul").on('mouseout', '.history_li', function () {
         $(this).find('.delete_btn').addClass('hide');
     });
 
     /*批量测试按钮*/
     $('#batch_test_btn').on('click', function () {
-
 
         var compare_response = $('#compare_response').is(':checked');
         var compare_runtime = $('#compare_runtime').is(':checked');
@@ -346,7 +345,7 @@ $(function () {
             success: function (msg) {
                 $(".project_list_div").find("."+ul).html('');
                 $.each(msg, function (i, item) {
-                    $(".project_list_div").find("."+ul).prepend("<li class='history_li'><a href='javascript:void(0)' id='" + item.pk + "' class='history_api'>" + item.fields.api + "</a> <span class='glyphicon glyphicon-trash hide delete_btn'  aria-hidden='true'></span></li>")
+                    $(".project_list_div").find("."+ul).prepend("<li class='history_li li_"+item.pk+"'><a href='javascript:void(0)' id='" + item.pk + "' class='history_api'>" + item.fields.api + "</a> <span class='glyphicon glyphicon-trash hide delete_btn' api_id="+item.pk+" aria-hidden='true'></span></li>")
                 });
 
             },
@@ -357,4 +356,24 @@ $(function () {
         });
 
     });
+
+    $(".all_project_list").on("click", ".delete_btn", function () {
+        var api_id = $(this).attr("api_id");
+        $.ajax({
+            type: "get",
+            data: {api_id:api_id, time: Date.parse(new Date())},
+            dataType: "json",
+            url: "/page/del_api/",
+            success: function (msg) {
+                console.log(msg)
+                if (msg.code >= 0) {
+                    $(".li_"+api_id).remove();
+                }
+
+            },
+            error: function (msg) {
+                console.log(msg);
+            }
+        });
+    })
 });

@@ -243,3 +243,14 @@ def add_project(request):
     project_obj.save();
 
     return HttpResponse('', content_type="application/json")
+
+
+
+def del_api(request):
+    api_id = request.GET.get('api_id', 0)
+
+    status = {"code" : 0, "msg":"OK"}
+    test1 = Test.objects.get(id=api_id)
+    test1.delete()
+
+    return HttpResponse(status, content_type="application/json")

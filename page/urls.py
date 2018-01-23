@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^newProject/$', views.newProject),
     url(r'^saveProject/$', views.saveProject),
     url(r'^add_project/$', views.add_project),
+    url(r'^del_api/$', views.del_api),
 ]
 
